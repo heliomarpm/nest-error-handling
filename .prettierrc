@@ -1,0 +1,28 @@
+{
+	"parser": "babel-ts",
+	"singleQuote": false,
+	"trailingComma": "all",
+	"useTabs": true,
+	"tabWidth": 2,
+	"semi": true,
+	"arrowParens": "avoid",
+	"bracketSpacing": true,
+	"bracketSameLine": true,
+	"printWidth": 100,
+	"overrides": [
+		{
+			"files": "*.json",
+			"options": {
+				"printWidth": 200
+			}
+		}
+	],
+	"embeddedLanguageFormatting": "auto",
+	"htmlWhitespaceSensitivity": "css",
+	"proseWrap": "preserve",
+	"plugins": ["@trivago/prettier-plugin-sort-imports"],
+	"importOrder": ["^@core/(.*)$", "^@shared/(.*)$", "^@server/(.*)$", "^@app/(.*)$", "^[./]"],
+	"importOrderSeparation": true,
+	"importOrderCaseInsensitive": false,
+	"importOrderSortSpecifiers": true
+}
