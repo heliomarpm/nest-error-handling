@@ -8,32 +8,35 @@ export class AllExceptionsFilter implements ExceptionFilter {
 		const response = ctx.getResponse<Response>();
 		const request = ctx.getRequest<Request>();
 
+		const isHttpException = exception instanceof HttpException;
+		const statusCode = isHttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+		// const error = isHttpException ? exception.name : "InternalError";
+
+		const message = (): string => {
+			if (isHttpException) {
+				const httpExceptionResponse = exception.getResponse();
+				return typeof httpExceptionResponse === "string"
+					? httpExceptionResponse
+					: httpExceptionResponse["message"] || "Erro inesperado";
+			}
+
+			return "Erro inesperado";
+		};
+
 		// Estrutura de resposta padrão
 		const errorResponse = {
 			data: null,
 			error: {
-				statusCode: null,
-				message: "Internal Server Error",
-				error: "InternalError",
+				statusCode,
+				type: HttpStatus[statusCode] || "UnknownError",
+				message: message(),
 				timestamp: new Date().toISOString(),
 				path: request.url,
 			},
 		};
 
-		if (exception instanceof HttpException) {
-			const httpExceptionResponse = exception.getResponse();
-			errorResponse.error.statusCode = exception.getStatus();
-			errorResponse.error.message =
-				typeof httpExceptionResponse === "string"
-					? httpExceptionResponse
-					: httpExceptionResponse["message"] || "Erro inesperado";
-			errorResponse.error.error = exception.name || "HttpException";
-		} else {
-			errorResponse.error.message = "Erro inesperado";
-			errorResponse.error.error = "InternalError";
-		}
-
+		response.status(statusCode).json(errorResponse);
 		// Retorna sempre com status 200
-		response.status(HttpStatus.OK).json(errorResponse);
+		// response.status(HttpStatus.OK).json(errorResponse);
 	}
 }
