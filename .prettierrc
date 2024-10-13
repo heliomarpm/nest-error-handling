@@ -21,7 +21,7 @@
 	"htmlWhitespaceSensitivity": "css",
 	"proseWrap": "preserve",
 	"plugins": ["@trivago/prettier-plugin-sort-imports"],
-	"importOrder": ["^@core/(.*)$", "^@shared/(.*)$", "^@server/(.*)$", "^@app/(.*)$", "^[./]"],
+	"importOrder": ["^@nestjs/(.*)$","^@core/(.*)$", "^@shared/(.*)$", "^@server/(.*)$", "^@app/(.*)$", "^[./]"],
 	"importOrderSeparation": true,
 	"importOrderCaseInsensitive": false,
 	"importOrderSortSpecifiers": true

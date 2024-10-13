@@ -25,10 +25,10 @@ export class LoggingInterceptor implements NestInterceptor {
 				error: error => {
 					// Log do erro
 					this.logger.error(`Error: ${error.message}`, error.stack);
-					// Se for uma exceção HTTP, você pode querer capturá-la e não lançar
-					if (error instanceof HttpException) {
-						response.status(200); // Force para sempre 200
-					}
+					// // Se for uma exceção HTTP, você pode querer capturá-la e não lançar
+					// if (error instanceof HttpException) {
+					// 	response.status(200); // Force para sempre 200
+					// }
 				},
 			}),
 		);
